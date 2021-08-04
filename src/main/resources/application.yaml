@@ -35,6 +35,9 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
 
+
+
+
 #  management是所有actuator的配置
 # management.endpoint.端点名.xxx  是对某个端点的具体配置
 management:
