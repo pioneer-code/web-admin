@@ -1,0 +1,51 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: liuhuande123
+    driver-class-name: com.mysql.jdbc.Driver
+
+    druid:
+      aop-patterns: com.example.*  #监控SpringBean
+      filters: stat,wall     # 底层开启功能，stat（sql监控），wall（防火墙）
+
+      stat-view-servlet:   # 配置监控页功能
+        enabled: true
+        login-username: admin
+        login-password: admin
+        resetEnable: false
+
+      web-stat-filter:  # 监控web
+        enabled: true
+        urlPattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+
+
+      filter:
+        stat:    # 对上面filters里面的stat的详细配置
+          slow-sql-millis: 1000  # 当执行语句大于1秒为慢sql
+          logSlowSql: true
+          enabled: true
+        wall:   # 对防火墙配置
+          enabled: true
+          config:
+            drop-table-allow: false # 是否能删表
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+#  management是所有actuator的配置
+# management.endpoint.端点名.xxx  是对某个端点的具体配置
+management:
+  endpoints:
+    enabled-by-default: true #暴露所有端点信息
+    web:
+      exposure:
+        include: '*'  # 以web方式暴露
+  endpoint:
+    health: # health端点
+      show-details: always
+      enabled: true # 打开端点
+    info: # info端点
+      enabled: true
